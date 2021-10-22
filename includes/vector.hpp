@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:19:01 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/22 15:18:35 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/22 16:25:28 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,14 +290,14 @@ namespace	ft {
 			reference		at( size_type pos ) {
 
 				if (pos >= _size)
-					throw std::out_of_range("vector");
+					throw std::out_of_range("ft_vector: Out of range exception");
 				return operator[](pos);
 			}
 
 			const_reference	at( size_type pos ) const {
 
 				if (pos >= _size)
-					throw std::out_of_range("vector");
+					throw std::out_of_range("ft_vector: Out of range exception");
 				return operator[](pos);
 			}
 
