@@ -1,0 +1,5 @@
+*.o
+ft_containers
+std_containers
+containers_test
+ft_containers_checker
