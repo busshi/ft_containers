@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:04:49 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/22 14:51:40 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/22 16:20:58 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ void	checkAt( T vec ) {
 
 		std::cout << "Checking operator[]: index [" << array[i] << "] " << vec[array[i]] << std::endl;
 	}
-	try {
+/*	try {
 		std::cout << "Attempting to access a value out of range: index [" << size << "] ";
 		std::cout << vec.at(size);
 	}
 	catch (std::exception & e) {
 		std::cout << RED << e.what() << CLEAR << std::endl;
 	}
-	
+*/	
 	std::cout << std::endl;
 }
 
