@@ -6,7 +6,7 @@
 #    By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 18:20:46 by aldubar           #+#    #+#              #
-#    Updated: 2021/10/25 13:46:03 by aldubar          ###   ########.fr        #
+#    Updated: 2021/10/25 14:18:22 by aldubar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,6 @@ defense:	re
 
 check:		fclean
 		@if [ ! -d ft_containers_checker ]; then git clone https://github.com/busshi/ft_containers_checker.git; fi
-		@cd ft_containers_checker && /bin/bash grademe.sh vector
+		@cd ft_containers_checker && /bin/bash grademe.sh
 
 .PHONY:	all clean fclean re defense check
