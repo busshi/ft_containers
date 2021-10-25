@@ -33,7 +33,7 @@ echo -e "\nstd::$1\c"
 time ./${STD} "$1"  > std.out
 
 echo -e "${orange}[+] Checking diff ft::$1 vs std::$1${clear}\033[50G\c"
-log+="\n\n${orange}[+]Checking diff ft::$1 vs std::$1${clear}\n"
+log+="\n\n${orange}[+] Checking diff ft::$1 vs std::$1${clear}\n"
 
 dif=$(diff std.out ft.out)
 [[ $? -ne 0 ]] && { ko=$(( $ko + 1 )); log+="$dif"; echo -e "❌\n"; } || echo -e "✅\n"
@@ -57,3 +57,5 @@ esac
 ### CLEANING
 rm -f ft.out std.out
 clean=$(make fclean)
+
+exit $ko

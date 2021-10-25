@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 16:21:08 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/22 15:38:09 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/25 14:06:33 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ namespace	ft {
 			reference	operator*() const {	return *_ptr; }
 			pointer		operator->() const { return _ptr; }
 
-			friend difference_type operator-( const iterator & lhs, const iterator & rhs ) { return lhs._ptr - rhs._ptr; }
 			reference operator[]( int n ) const { return *(_ptr + n); }
 
 			friend bool operator==( const iterator & lhs, const iterator & rhs ) { return lhs._ptr == rhs._ptr; }
@@ -73,6 +72,7 @@ namespace	ft {
 			iterator		operator+( difference_type n ) const { return iterator(_ptr + n); }
 			iterator		operator-( difference_type n ) const { return iterator(_ptr - n); }
 			friend iterator	operator+( difference_type n, const iterator & rhs ) { return iterator(rhs._ptr + n); }
+			friend difference_type operator-( const iterator & lhs, const iterator & rhs ) { return lhs._ptr - rhs._ptr; }
 
 			T* _ptr;
 	};
@@ -104,7 +104,6 @@ namespace	ft {
 			reference	operator*( void ) const { return *_ptr; }
 			pointer		operator->( void ) const { return _ptr; }
 			
-			friend difference_type	operator-( const const_iterator& lhs, const const_iterator& rhs ) { return lhs._ptr - rhs._ptr; }
 			reference	operator[]( int n ) const { return *(_ptr + n); }
 
 			friend bool	operator==( const const_iterator & lhs, const const_iterator & rhs ) { return lhs._ptr == rhs._ptr; }
@@ -114,13 +113,6 @@ namespace	ft {
 			friend bool operator>( const const_iterator & lhs, const const_iterator & rhs ) { return lhs._ptr > rhs._ptr; }
 			friend bool operator>=( const const_iterator & lhs, const const_iterator & rhs ) { return lhs._ptr >= rhs._ptr; }
 
-//			bool	operator==( iterator<T> & rhs ) const { return _ptr == rhs._ptr; }
-//			bool	operator!=( iterator<T> & rhs ) const { return _ptr != rhs._ptr; }
-//			bool operator<( iterator<T> & rhs ) const { return _ptr < rhs._ptr; }
-//			bool	operator<=( iterator<T> & rhs ) const { return _ptr <= rhs._ptr; }
-//			bool operator>( iterator<T> & rhs ) const { return _ptr > rhs._ptr; }
-//			bool operator>=( iterator<T> & rhs ) const { return _ptr >= rhs._ptr; }
-			
 			const_iterator &	operator++( void ) { _ptr++; return *this; }
 			const_iterator &	operator--( void ) { _ptr--; return *this; }
 			const_iterator		operator++( int ) {
@@ -140,6 +132,7 @@ namespace	ft {
 			const_iterator		operator+( difference_type n ) const { return const_iterator(_ptr + n); }
 			const_iterator		operator-( difference_type n ) const { return const_iterator(_ptr - n); }
 			friend const_iterator operator+( difference_type n, const const_iterator & rhs) { return const_iterator(rhs._ptr + n); }
+			friend difference_type	operator-( const const_iterator & lhs, const const_iterator & rhs ) { return lhs._ptr - rhs._ptr; }
 
 			pointer	_ptr;
 	};

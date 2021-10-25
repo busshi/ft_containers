@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:19:01 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/22 16:25:28 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/25 14:12:35 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ namespace	ft {
 	class	vector {
 
 		public:
+
+			/*
+			* Member types
+			*/
+
 			typedef T											value_type;
 			typedef Alloc										allocator_type;
 			typedef typename allocator_type::reference			reference;
@@ -49,6 +54,11 @@ namespace	ft {
 			T *			_data;
 
 		public:
+
+			/*
+			* Member functions
+			*/
+
 			vector( void ): _alloc(Alloc()), _capacity(0), _size(0), _data(NULL) {}
 			explicit vector( const Alloc & alloc ): _alloc(alloc), _capacity(0), _size(0), _data(NULL) {}
 			
@@ -108,25 +118,6 @@ namespace	ft {
 				return *this;
 			}
 
-			allocator_type	get_allocator( void ) const { return _alloc; }
-
-			reference		operator[]( size_type n ) { return _data[n]; }
-			const_reference	operator[]( size_type n ) const { return _data[n]; }
-
-			size_type		size( void ) const { return _size; }
-			size_type		max_size( void ) const { return _alloc.max_size(); }
-			size_type		capacity( void ) const { return _capacity; }
-			bool			empty( void ) const { return (!_size ? true : false); }
-
-			void			reserve( size_type n ) {
-
-				if (n > max_size())
-					throw std::length_error("ft_vector: new capacity cannot be greater than max_size");
-					
-				else if (n > _capacity)
-					_realloc(n);
-			}
-
 			void			assign( size_type n, T const & val ) {
 
 				this->clear();
@@ -147,6 +138,83 @@ namespace	ft {
 				_size = 0;
 				for (InputIt it = first; it != last; it++, _size++)
 					_alloc.construct(_data + _size, *it);
+			}
+
+			allocator_type	get_allocator( void ) const { return _alloc; }
+
+			/*
+			* Element access
+			*/
+
+			reference		at( size_type pos ) {
+
+				if (pos >= _size)
+					throw std::out_of_range("ft_vector: Out of range exception");
+				return operator[](pos);
+			}
+
+			const_reference	at( size_type pos ) const {
+
+				if (pos >= _size)
+					throw std::out_of_range("ft_vector: Out of range exception");
+				return operator[](pos);
+			}
+
+			reference		operator[]( size_type n ) { return _data[n]; }
+			const_reference	operator[]( size_type n ) const { return _data[n]; }
+
+			reference		front( void ) { return _data[0]; }
+			const_reference	front( void ) const { return _data[0]; }
+
+			reference		back( void ) { return _size != 0 ? _data[_size - 1] : _data[0]; }
+			const_reference	back( void ) const { return _size != 0 ? _data[_size - 1] : _data[0]; }
+
+			/*
+			* Iterators
+			*/
+
+			iterator		begin( void ) { return iterator(_data); }
+			iterator		end( void ) { return iterator(_data + _size); }
+			
+			const_iterator	begin( void ) const { return const_iterator(_data); }
+			const_iterator	end( void ) const { return const_iterator(_data + _size); }
+
+			reverse_iterator		rbegin( void ) { return reverse_iterator(end()); }
+			reverse_iterator		rend( void ) { return reverse_iterator(begin()); }
+			
+			const_reverse_iterator	rbegin( void ) const { return const_reverse_iterator(end()); }
+			const_reverse_iterator	rend( void ) const { return const_reverse_iterator(begin()); }
+
+			/*
+			* Capacity
+			*/
+			bool			empty( void ) const { return (!_size ? true : false); }
+			size_type		size( void ) const { return _size; }
+			size_type		max_size( void ) const { return _alloc.max_size(); }
+			size_type		capacity( void ) const { return _capacity; }
+
+			void			reserve( size_type n ) {
+
+				if (n > max_size())
+					throw std::length_error("ft_vector: new capacity cannot be greater than max_size");
+					
+				else if (n > _capacity)
+					_realloc(n);
+			}
+
+			/*
+			* Modifiers
+			*/
+
+			void			clear( void ) {
+
+				if (this->empty())
+					return;
+
+				for (size_type i = 0; i < _size; i++)
+					_alloc.destroy(_data + i);
+
+				_size = 0;
 			}
 
 			void			insert( iterator pos, size_type n, T const & val ) {
@@ -201,6 +269,29 @@ namespace	ft {
 					insert(pos + i++, *it);
 			}
 
+			iterator		erase( iterator pos ) {
+
+				if (pos != end())
+					_leftShift(pos, 1);
+				_size--;
+				
+				return (pos);
+			}
+
+			iterator		erase( iterator first, iterator last ) {
+
+				size_type	len = 0;
+				iterator	tmp(first);
+
+				while (tmp++ != last)
+					len++;
+				if (first != end())
+					_leftShift(first, len);
+				_size -= len;
+				
+				return (first);
+			}
+
 			void			push_back( T const & val ) { 
 
 				if (_size >= _capacity)
@@ -230,39 +321,6 @@ namespace	ft {
 				}
 			}
 
-			void			clear( void ) {
-
-				if (this->empty())
-					return;
-
-				for (size_type i = 0; i < _size; i++)
-					_alloc.destroy(_data + i);
-
-				_size = 0;
-			}
-
-			iterator		erase( iterator pos ) {
-
-				if (pos != end())
-					_leftShift(pos, 1);
-				_size--;
-				
-				return (pos);
-			}
-
-			iterator		erase( iterator first, iterator last ) {
-
-				size_type	len = 0;
-				iterator	tmp(first);
-
-				while (tmp++ != last)
-					len++;
-				if (first != end())
-					_leftShift(first, len);
-				_size -= len;
-				
-				return (first);
-			}
 			void			swap( vector & other ) {
 
 				allocator_type	alloc = other._alloc;
@@ -281,38 +339,6 @@ namespace	ft {
 				_capacity = capacity;
 			}
 
-			reference		front( void ) { return _data[0]; }
-			const_reference	front( void ) const { return _data[0]; }
-
-			reference		back( void ) { return _size != 0 ? _data[_size - 1] : _data[0]; }
-			const_reference	back( void ) const { return _size != 0 ? _data[_size - 1] : _data[0]; }
-
-			reference		at( size_type pos ) {
-
-				if (pos >= _size)
-					throw std::out_of_range("ft_vector: Out of range exception");
-				return operator[](pos);
-			}
-
-			const_reference	at( size_type pos ) const {
-
-				if (pos >= _size)
-					throw std::out_of_range("ft_vector: Out of range exception");
-				return operator[](pos);
-			}
-
-
-			iterator		begin( void ) { return iterator(_data); }
-			iterator		end( void ) { return iterator(_data + _size); }
-			
-			const_iterator	begin( void ) const { return const_iterator(_data); }
-			const_iterator	end( void ) const { return const_iterator(_data + _size); }
-
-			reverse_iterator		rbegin( void ) { return reverse_iterator(end()); }
-			reverse_iterator		rend( void ) { return reverse_iterator(begin()); }
-			
-			const_reverse_iterator	rbegin( void ) const { return const_reverse_iterator(end()); }
-			const_reverse_iterator	rend( void ) const { return const_reverse_iterator(begin()); }
 
 		private:
 			void		_realloc( size_type n ) {
@@ -337,6 +363,10 @@ namespace	ft {
 				}
 			}
 	};
+
+	/*
+	* Non-member functions
+	*/
 
 	template< class T, class Alloc >
 	bool	operator==( const ft::vector<T, Alloc> & lhs, const ft::vector<T, Alloc> & rhs ) {

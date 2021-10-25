@@ -6,7 +6,7 @@
 #    By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 18:20:46 by aldubar           #+#    #+#              #
-#    Updated: 2021/10/25 11:15:44 by aldubar          ###   ########.fr        #
+#    Updated: 2021/10/25 13:46:03 by aldubar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,13 @@ NAME		= ft_containers
 
 SRCS		= $(addprefix srcs/, main.cpp vector.cpp stack.cpp map.cpp)
 
-HEADER		= $(addprefix includes/, vector.hpp iterator.hpp reverse_iterator.hpp type_traits.hpp comparison.hpp)
+HEADER		= $(addprefix includes/, vector.hpp iterator.hpp reverse_iterator.hpp type_traits.hpp comparison.hpp stack.hpp)
 
 OBJ_DIR		= obj/ft
 
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 
-FLAGS		= -Wall -Wextra -Werror -std=c++98 -Iincludes -DCONTAINER=ft
+FLAGS		= -Wall -Wextra -Werror -std=c++98 -Iincludes -DSTL=0
 
 CC			= @clang++
 
@@ -58,7 +58,7 @@ fclean:
 re:			fclean all
 
 defense:	re
-		@/bin/bash defense.sh vector
+		@/bin/bash defense.sh
 
 check:		fclean
 		@if [ ! -d ft_containers_checker ]; then git clone https://github.com/busshi/ft_containers_checker.git; fi

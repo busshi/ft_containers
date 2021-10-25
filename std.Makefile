@@ -6,7 +6,7 @@
 #    By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 18:20:46 by aldubar           #+#    #+#              #
-#    Updated: 2021/10/21 18:05:02 by aldubar          ###   ########.fr        #
+#    Updated: 2021/10/25 13:44:51 by aldubar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJ_DIR		= obj/std
 
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 
-FLAGS		= -Wall -Wextra -Werror -std=c++98 -Iincludes -DCONTAINER=std
+FLAGS		= -Wall -Wextra -Werror -std=c++98 -Iincludes -DSTL=1
 
 CC			= @clang++
 
