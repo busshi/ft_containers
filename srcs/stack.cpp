@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 14:35:51 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/25 15:27:14 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/25 15:37:52 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,21 @@ void	testCopy( T orig, T copy, T copy2, A array ) {
 	testSize(orig);
 }
 
+template< class T >
+void	compareStack( T s, T s2, std::string type, std::string equal ) {
+
+	std::cout << std::boolalpha;
+	std::cout << "[+] " << equal << " vector<" << type << ">" << std::endl;
+	std::cout << "is equal? " << (s == s2) << std::endl;
+	std::cout << "is not equal? " << (s != s2) << std::endl;
+	std::cout << "is greater or equal than? " << (s >= s2) << std::endl;
+	std::cout << "is lower or equal than? " << (s <= s2) << std::endl;
+	std::cout << "is greater than ? " << (s > s2) << std::endl;
+	std::cout << "is lower than ? " << (s < s2) << std::endl;
+
+	std::cout << "-------------------------" << std::endl;
+}
+
 void	testingStack( void ) {
 
 	std::cout << ORANGE << "===> TESTING STACK <===" << CLEAR << std::endl;
@@ -139,4 +154,28 @@ void	testingStack( void ) {
 	ft::stack<std::string, ft::vector<std::string> >	scpy2(s);
 
 	testCopy(s, scpy, scpy2, arrayS);
+
+
+	std::cout << "\033[33m[+] Testing comparison...\033[0m" << std::endl << std::endl;
+
+	ft::vector<int>	veci;
+	ft::stack<int, ft::vector<int> >	sint(veci);
+
+	for (size_t i = 0; i < 5; i++)
+		sint.push(i);
+
+	ft::stack<int, ft::vector<int> >	sint2(veci);
+	for (size_t i = 0; i < 10; i++)
+		sint2.push(-i);
+
+	compareStack(sint, sint, "int", "same");
+	compareStack(sint, sint2, "int", "different");
+
+	ft::vector<std::string>	vstr;
+	ft::stack<std::string, ft::vector<std::string> >	sstr(vstr);
+	ft::stack<std::string, ft::vector<std::string> >	sstr2(vstr);
+	sstr.push("hello");
+	sstr2.push("heello");
+
+	compareStack(sstr, sstr2, STR, "different");
 }
