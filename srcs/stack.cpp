@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 14:35:51 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/25 13:44:30 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/25 15:27:14 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,41 +30,59 @@ template< class T >
 void	testSize( T s ) {
 
 	std::cout << std::boolalpha;
-	std::cout << "[+] stack size: " << s.size() << std::endl;
-	std::cout << "[+] is empty? " << s.empty() << std::endl;
+	std::cout << "stack size: " << s.size() << std::endl;
+	std::cout << "is empty? " << s.empty() << std::endl;
 
 	std::cout << "--------------------------" << std::endl;
 }
 
 template< class T, class A >
-void	runTests( T s, A array, size_t size, std::string type ) {
+void	testPushPop( T s, A array, size_t size, std::string type ) {
 
-	std::cout << std::boolalpha << "Testing with a stack of " << type << std::endl;
+	std::cout << std::boolalpha << ORANGE << "[+] Testing stack.push() and stack.pop() with a stack of " << type << CLEAR << std::endl;
 	
 	testSize(s);
 
 	for (size_t i = 0; i < size; i++) {
 		
 		s.push(array[i]);
-		std::cout << "[+] stack Top after push element (" << array[i] << ") => [" << s.top() << "]" << std::endl << std::endl;
+		std::cout << "stack Top after push element (" << array[i] << ") => [" << s.top() << "]" << std::endl << std::endl;
 	}
 	testSize(s);
 
 	for (size_t i = 0; i < size - 1; i++) {
 
 		s.pop();
-		std::cout << "[+] stack Top after pop => [" << s.top() << "]" << std::endl << std::endl;
+		std::cout << "stack Top after pop => [" << s.top() << "]" << std::endl << std::endl;
 	}
 	testSize(s);
 
-	std::cout << "[+] Removing the last element..." << std::endl;
+	std::cout << "Removing the last element..." << std::endl;
 	s.pop();
 	testSize(s);
 }
 
+template< class T, class A >
+void	testCopy( T orig, T copy, T copy2, A array ) {
+
+	std::cout << std::boolalpha << ORANGE << "[+] Testing copy not changing original stack..." << CLEAR << std::endl;
+
+	for (size_t i = 0; i < 6; i++) {
+
+		copy.push(array[i]);
+		copy2.push(array[i]);
+		std::cout << "copy stack top after push [" << copy.top() << "]" << std::endl;
+		std::cout << "copy2 stack top after push [" << copy2.top() << "]" << std::endl;
+		std::cout << "original stack top after push [" << orig.top() << "]" << std::endl << std::endl;
+	}
+	testSize(copy);
+	testSize(copy2);
+	testSize(orig);
+}
+
 void	testingStack( void ) {
 
-	std::cout << ORANGE << "===> Testing STACK <===" << CLEAR << std::endl;
+	std::cout << ORANGE << "===> TESTING STACK <===" << CLEAR << std::endl;
 
 	ft::vector<int>		vi;
 	ft::vector<int>		vi2(10);
@@ -101,15 +119,24 @@ void	testingStack( void ) {
 
 
 	std::string	arrayS[] = {"Hello", "holà", "bonjour", "hi", "good bye", "salut"};
-	runTests(ss, arrayS, 6, STR);
+	testPushPop(ss, arrayS, 6, STR);
 
 	int			arrayI[42];
 	for (size_t i = 0; i < 42; i++)
 		arrayI[i] = i + 1;
-	runTests(si, arrayI, 42, "int");
+	testPushPop(si, arrayI, 42, "int");
 
 	char		arrayC[26];
 	for (size_t i = 0; i < 26; i++)
 		arrayC[i] = i + 65;
-	runTests(sc, arrayC, 26, "char");
+	testPushPop(sc, arrayC, 26, "char");
+
+
+
+	ft::vector<std::string>	vec(1, "original element");
+	ft::stack<std::string, ft::vector<std::string> >	s(vec);
+	ft::stack<std::string, ft::vector<std::string> >	scpy = s;
+	ft::stack<std::string, ft::vector<std::string> >	scpy2(s);
+
+	testCopy(s, scpy, scpy2, arrayS);
 }
