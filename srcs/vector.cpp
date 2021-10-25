@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:04:49 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/22 16:24:21 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/25 11:07:04 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ void	checkEmpty( T & vec ) {
 
 	bool	empty = vec.empty();
 
-	std::cout << "is empty? " << (empty ? "true" : "false") << std::endl;
+	std::cout << "[+] is empty? " << (empty ? "true" : "false") << std::endl;
 }
 
 template< class T >
 void	checkSize( T & vec, std::string type ) {
 
-	std::cout << "vector<" << type << "> size : " << vec.size() << std::endl;
-	std::cout << "vector<" << type << "> max_size : " << vec.max_size() << std::endl;
-	std::cout << "Capacity :" << (vec.capacity() >= vec.size() ? OK : KO) << std::endl;
+	std::cout << "[+] vector<" << type << "> size : " << vec.size() << std::endl;
+	std::cout << "[+] vector<" << type << "> max_size : " << vec.max_size() << std::endl;
+	std::cout << "[+] Capacity :" << (vec.capacity() >= vec.size() ? OK : KO) << std::endl;
 
 	checkEmpty(vec);
 }
@@ -45,7 +45,7 @@ void	checkSize( T & vec, std::string type ) {
 template< class T >
 void	displayCont( T & vec ) {
 
-	std::cout << "vector vecent: ";
+	std::cout << "[+] vector vecent: ";
 
 	for (typename T::iterator it = vec.begin(); it != vec.end(); it++)
 		std::cout << "[" << *it << "] ";
@@ -70,6 +70,8 @@ void	checkAt( T vec ) {
 	size_t	size = vec.size();
 	size_t	array[] = {1, size - 2};
 
+	std::cout << "[+] Testing access:" << std::endl;
+
 	for (size_t i = 0; i < 2; i++) {
 		
 		std::cout << "Checking vector.at: index [" << array[i] << "] " << vec.at(array[i]) << std::endl;
@@ -90,6 +92,8 @@ void	checkAt( T vec ) {
 template< class T >
 void	checkFrontBack( T vec ) {
 
+	std::cout << "[+]Testing vector.front() and vector.back():" << std::endl;
+
 	std::cout << "vector->front [" << vec.front() << "]" << std::endl;
 
 	std::cout << "vector->back [" << vec.back() << "]" << std::endl << std::endl;
@@ -101,7 +105,8 @@ void	checkPushPop( T vec, Array array, size_t sizeArray ) {
 	for (size_t i = 0; i < sizeArray; i++)
 		vec.push_back(array[i]);
 
-	std::cout << std::endl << "After push_back " << sizeArray << " elements:" << std::endl;
+	std::cout << std::endl << "[+] Testing push_back and pop_back" << std::endl;
+	std::cout << "After push_back " << sizeArray << " elements:" << std::endl;
 	checkCont(vec.begin(), vec.size());
 	checkFrontBack(vec);
 
@@ -120,6 +125,7 @@ void	checkResize( T vec, std::string type ) {
 
 	size_t	size = vec.size();
 
+	std::cout << "[+] Testing vector.resize()" << std::endl;
 	std::cout << "Before resizing:" << std::endl;
 	checkSize(vec, type);
 	
@@ -135,6 +141,7 @@ void	checkResize( T vec, std::string type ) {
 template< class T >
 void	checkInsertStr( T vec ) {
 
+	std::cout << "[+] Testing vector.insert()" << std::endl;
 	std::cout << "After insert 1 element at index[size - 2]:" << std::endl;
 	vec.insert(vec.end() - 1, "hiiiiiiiii");
 	checkCont(vec.begin(), vec.size());
@@ -150,6 +157,7 @@ void	checkInsertStr( T vec ) {
 template< class T >
 void	checkInsertInt( T vec ) {
 
+	std::cout << "[+] Testing vector.insert()" << std::endl;
 	std::cout << "After insert 1 element at index[size - 2]:" << std::endl;
 	vec.insert(vec.end() - 1, 999);
 	checkCont(vec.begin(), vec.size());
@@ -211,7 +219,7 @@ void	runTestsInt( T vec, bool filled ) {
 template< class T, class Array >
 void	moreTests( T vec, Array array ) {
 
-	std::cout << "Testing assign:" << std::endl;
+	std::cout << "[+] Testing vector.assign():" << std::endl;
 	vec.assign(4, array[0]);
 	vec.insert(vec.begin(), 4, array[1]);
 	vec.push_back(array[2]);
@@ -219,17 +227,46 @@ void	moreTests( T vec, Array array ) {
 
 	checkCont(vec.begin(), vec.size());
 
-	std::cout << "Testing assign with a range, removing the first three elements:" << std::endl;
+	std::cout << "[+] Testing assign with a range, removing the first three elements:" << std::endl;
 	vec.assign(vec.begin() + 3, vec.end());
 	checkCont(vec.begin(), vec.size());
 
-	std::cout << "Testing erase the last element:" << std::endl;
+	std::cout << "[+] Testing erase the last element:" << std::endl;
 	vec.erase(vec.end() - 1);
 	checkCont(vec.begin(), vec.size());
 
-	std::cout << "Testing erase a range of elements, keeping the first and the last:" << std::endl;
+	std::cout << "[+] Testing erase a range of elements, keeping the first and the last:" << std::endl;
 	vec.erase(vec.begin() + 1, vec.end() - 1);
 	checkCont(vec.begin(), vec.size());
+
+	std::cout << "[+] Testing vector.clear():" << std::endl;
+	vec.clear();
+	checkCont(vec.begin(), vec.size());
+}
+
+template< class T >
+void	latestsTests( T vec, T vec2, std::string type, std::string s ) {
+
+	std::cout << std::boolalpha;
+	std::cout << "[+] Testing comparison operators:" << std::endl;
+	std::cout << s << " vector<" << type << ">" << std::endl;
+	std::cout << "is equal? " << (vec == vec2) << std::endl;
+	std::cout << "is not equal? " << (vec != vec2) << std::endl;
+	std::cout << "is greater or equal than? " << (vec >= vec2) << std::endl;
+	std::cout << "is lower or equal than? " << (vec <= vec2) << std::endl;
+	std::cout << "is greater than ? " << (vec > vec2) << std::endl;
+	std::cout << "is lower than ? " << (vec < vec2) << std::endl;
+
+	std::cout << std::endl << "[+] Testing vec.reserve():" << std::endl;
+	vec.reserve(100);
+	checkCont(vec.begin(), vec.size());
+	checkSize(vec, s);
+	vec.reserve(1000);
+	checkCont(vec.begin(), vec.size());
+	checkSize(vec, s);
+	vec2.reserve(0);
+	checkCont(vec2.begin(), vec2.size());
+	checkSize(vec2, s);
 }
 
 void	testingVector( void ) {
@@ -279,4 +316,15 @@ void	testingVector( void ) {
 	vector<int>	vi4;
 	int arrayInt[] = {113, 4242, 666, -42};
 	moreTests(vi4, arrayInt);
+
+
+	std::cout << ORANGE << "===> LASTEST TESTS FOR VECTOR <===" << CLEAR << std::endl;
+	vector<int>	vi5;
+	vector<int>	vi6;
+	for (size_t i = 0; i < 42; i++) {
+		vi5.push_back(i);
+		vi6.push_back(-i);
+	}
+	latestsTests(vi5, vi6, "int", "Differents");
+	latestsTests(vi5, vi5, "int", "same");
 }
