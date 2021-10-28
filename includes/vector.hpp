@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:19:01 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/25 14:12:35 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/28 12:02:21 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,6 +273,7 @@ namespace	ft {
 
 				if (pos != end())
 					_leftShift(pos, 1);
+				_alloc.destroy(_data + _size);
 				_size--;
 				
 				return (pos);
@@ -287,7 +288,11 @@ namespace	ft {
 					len++;
 				if (first != end())
 					_leftShift(first, len);
-				_size -= len;
+				while (len) {
+					_alloc.destroy(_data + len);
+					_size--;
+					len--;
+				}
 				
 				return (first);
 			}
