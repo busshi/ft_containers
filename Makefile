@@ -6,7 +6,7 @@
 #    By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 18:20:46 by aldubar           #+#    #+#              #
-#    Updated: 2021/10/28 18:36:39 by aldubar          ###   ########.fr        #
+#    Updated: 2021/10/29 11:30:13 by aldubar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		= ft_containers
 
 SRCS		= $(addprefix srcs/, main.cpp vector.cpp stack.cpp map.cpp)
 
-HEADER		= $(addprefix includes/, vector.hpp iterator.hpp reverse_iterator.hpp type_traits.hpp comparison.hpp stack.hpp)
+HEADER		= $(addprefix includes/, vector.hpp iterator.hpp reverse_iterator.hpp type_traits.hpp comparison.hpp stack.hpp map.hpp)
 
 OBJ_DIR		= obj/ft
 
