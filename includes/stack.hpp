@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 11:17:38 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/25 12:07:26 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/29 11:38:44 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ namespace ft {
 	
 	template< typename T, typename Container = ft::vector<T> >
 	class stack {
+
+			/*
+			* Member objects
+			*/
 
 		protected:
 			Container	c;
@@ -39,11 +43,11 @@ namespace ft {
 			* Member functions
 			*/
 
-			explicit stack( const Container & cont = Container() ): c(cont) {}
-			stack( const stack & other ): c(other.c) {}
+			explicit stack( const Container& cont = Container() ): c(cont) {}
+			stack( const stack& other ): c(other.c) {}
 			~stack( void ) {}
 
-			stack &	operator=( const stack & other ) {
+			stack&	operator=( const stack& other ) {
 
 				if (this != &other)
 					c = other.c;
@@ -69,25 +73,19 @@ namespace ft {
 			* Modifiers
 			*/
 
-			void			push( const value_type & value ) { c.push_back(value); }
+			void			push( const value_type& value ) { c.push_back(value); }
 			void			pop( void ) { c.pop_back(); }
 
 			/*
 			* Non-member functions
 			*/
 
-			friend bool	operator==( const ft::stack<T,Container> & lhs, const ft::stack<T,Container> & rhs ) { return lhs.c == rhs.c;}
-
-			friend bool	operator!=( const ft::stack<T,Container> & lhs, const ft::stack<T,Container> & rhs ) { return lhs.c != rhs.c; }
-
-			friend bool	operator<( const ft::stack<T,Container> & lhs, const ft::stack<T,Container> & rhs ) { return lhs.c < rhs.c; }
-
-			friend bool	operator<=( const ft::stack<T,Container> & lhs, const ft::stack<T,Container> & rhs ) { return lhs.c <= rhs.c; }
-
-			friend bool	operator>( const ft::stack<T,Container> & lhs, const ft::stack<T,Container> & rhs ) { return lhs.c > rhs.c; }
-
-			friend bool	operator>=( const ft::stack<T,Container> & lhs, const ft::stack<T,Container> & rhs ) { return lhs.c >= rhs.c; }
-			
+			friend bool	operator==( const ft::stack<T,Container>& lhs, const ft::stack<T,Container>& rhs ) { return lhs.c == rhs.c;}
+			friend bool	operator!=( const ft::stack<T,Container>& lhs, const ft::stack<T,Container>& rhs ) { return lhs.c != rhs.c; }
+			friend bool	operator<( const ft::stack<T,Container>& lhs, const ft::stack<T,Container>& rhs ) { return lhs.c < rhs.c; }
+			friend bool	operator<=( const ft::stack<T,Container>& lhs, const ft::stack<T,Container>& rhs ) { return lhs.c <= rhs.c; }
+			friend bool	operator>( const ft::stack<T,Container>& lhs, const ft::stack<T,Container>& rhs ) { return lhs.c > rhs.c; }
+			friend bool	operator>=( const ft::stack<T,Container>& lhs, const ft::stack<T,Container>& rhs ) { return lhs.c >= rhs.c; }
 	};
 }
 
