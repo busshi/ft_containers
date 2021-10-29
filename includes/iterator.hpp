@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 16:21:08 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/29 12:15:10 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/29 14:22:30 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ namespace	ft {
 			typedef T& 								reference;
 			typedef std::random_access_iterator_tag	iterator_category;
 
-			iterator( void ) {}
+			iterator( void ): _ptr() {}
 			iterator( pointer ptr ) : _ptr(ptr) {}
 			iterator( const iterator& src ) { *this = src; }
 		
 			iterator& operator=( const iterator& rhs ) {
 
 				if (this != &rhs)
-					this->_ptr = rhs._ptr;
+					_ptr = rhs._ptr;
 			
 				return *this;
 			}
@@ -97,7 +97,7 @@ namespace	ft {
 			const_iterator &	operator=( const const_iterator& rhs ) {
 			
 			if (this != &rhs)
-					this->_ptr = rhs._ptr;
+					_ptr = rhs._ptr;
 				return *this;
 			}
 

@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 19:53:13 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/29 11:29:58 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/29 14:45:01 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ namespace	ft {
 		
 		public:
 
-		/*
-		* Member types
-		*/
+			/*
+			* Member types
+			*/
 
 			typedef Key										key_type;
 			typedef T										mapped_type;
@@ -42,9 +42,9 @@ namespace	ft {
 			typedef reverse_iterator<iterator>				reverse_iterator;
 			typedef const_reverse_iterator<const_iterator>	const_reverse_iterator;
 
-		/*
-		* Member classes
-		*/
+			/*
+			* Member classes
+			*/
 
 			class value_compare {
 
@@ -59,9 +59,9 @@ namespace	ft {
 					bool operator()( const value_type& lhs, const value_type& rhs ) const { return comp(lhs.first, rhs.first); }
 			};
 
-		/*
-		* Member functions
-		*/
+			/*
+			* Member functions
+			*/
 
 			map( void ) {}
 			explicit map( const Compare& comp, const Allocator& alloc = Allocator() ) {}
@@ -73,22 +73,22 @@ namespace	ft {
 
 			~map( void ) {}
 
-			map &	operator=( const map& other ) {}
+			map&	operator=( const map& other ) {}
 
-			allocator_type	get_allocator( void ) const {}
+			allocator_type	get_allocator( void ) const { return _alloc; }
 
-		/*
-		* Elements access
-		*/
+			/*
+			* Elements access
+			*/
 			
 			T&			at( const Key& key ) {}
 			const T&	at( const Key& key ) const {}
 
 			T&			operator[]( const Key& key ) {}
 
-		/*
-		* Iterators
-		*/
+			/*
+			* Iterators
+			*/
 			
 			iterator		begin( void ) {}
 			const_iterator	begin( void ) const {}
@@ -102,19 +102,19 @@ namespace	ft {
 			reverse_iterator		rend( void ) {}
 			const_reverse_iterator	rend( void ) const {}
 
-		/*
-		* Capacity
-		*/
+			/*
+			* Capacity
+			*/
 			
 			bool		empty( void ) const { return begin() == end(); }
 			size_type	size( void ) const { return _size; }
-			size_type	max_size( void ) const {}
+			size_type	max_size( void ) const { return _alloc.max_size(); }
 
-		/*
-		* Modifiers
-		*/
+			/*
+			* Modifiers
+			*/
 
-			void	clear( void ) {}
+			void		clear( void ) {}
 
 			ft::pair<iterator, bool>	insert( const value_type& value ) {}
 			iterator					insert( iterator hint, const value_type& value ) {}
@@ -126,13 +126,13 @@ namespace	ft {
 			void		erase( iterator first, iterator last ) {}
 			size_type	erase( const key_type& key ) {}
 
-			void	swap( map& other ) {}
+			void		swap( map& other ) {}
 
-		/*
-		* Lookup
-		*/
+			/*
+			* Lookup
+			*/
 
-			size_type	count( const Key& key ) const {}
+			size_type		count( const Key& key ) const {}
 
 			iterator		find( const Key& key ) {}
 			const_iterator	find( const Key& key ) const {}
@@ -146,37 +146,49 @@ namespace	ft {
 			iterator		upper_bound( const Key& key ) {}
 			const_iterator	upper_bound( const Key& key ) const {}
 
-		/*
-		* Observers
-		*/
+			/*
+			* Observers
+			*/
 
-			key_compare				key_comp( void ) const {}
+			key_compare				key_comp( void ) const { return _comp; }
 
-			ft::map::value_compare	value_comp( void ) const {}
+			ft::map::value_compare	value_comp( void ) const { return value_compare(_comp); }
 
+
+		private:
+
+			Compare		_comp;
+			Allocator	_alloc;			
+			size_type	_size;
 	};
 
-		/*
-		* Non members functions
-		*/
+	/*
+	* Non members functions
+	*/
 
 	template< class Key, class T, class Compare, class Alloc >
-	bool operator==( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ) {}
+	bool operator==( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ) {
+
+		if (lhs.size() != rhs.size())
+			return false;
+
+		return ft::equal(lhs.begin(), lhs.end(), rhs.begin());
+	}
 
 	template< class Key, class T, class Compare, class Alloc >
-	bool operator!=( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs ) {}
+	bool operator!=( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs ) { return !(lhs == rhs); }
 
 	template< class Key, class T, class Compare, class Alloc >
-	bool operator<( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs ) {}
+	bool operator<( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs ) { return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()); }
 
 	template< class Key, class T, class Compare, class Alloc >
-	bool operator<=( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs ) {}
+	bool operator<=( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs ) { return (lhs == rhs || lhs < rhs); }
 
 	template< class Key, class T, class Compare, class Alloc >
-	bool operator>( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs ) {}
+	bool operator>( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs ) { return !(lhs <= rhs); }
 
 	template< class Key, class T, class Compare, class Alloc >
-	bool operator>=( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs ) {}
+	bool operator>=( const std::map<Key,T,Compare,Alloc>& lhs, const std::map<Key,T,Compare,Alloc>& rhs ) { return !(lhs < rhs); }
 
 }
 

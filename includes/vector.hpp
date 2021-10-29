@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:19:01 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/29 12:48:31 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/29 15:04:55 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ namespace	ft {
 			}
 
 			template< class InputIt >
-			vector( InputIt first, InputIt last, const Allocator& alloc = Allocator(), typename ft::enable_if<!is_integral<InputIt>::value>::type* = NULL ) {
+			vector( InputIt first, typename ft::enable_if<!is_integral<InputIt>::value, InputIt>::type last, const Allocator& alloc = Allocator()) {
 
 				_capacity = 0;
 				for (InputIt it = first; it != last; it++)
@@ -127,7 +127,7 @@ namespace	ft {
 			}
 
 			template< class InputIt >
-			void			assign( InputIt first, InputIt last, typename ft::enable_if<!is_integral<InputIt>::value>::type* = NULL ) {
+			void			assign( InputIt first, typename ft::enable_if<!is_integral<InputIt>::value, InputIt>::type last) {
 
 				this->clear();
 				size_type	n = 0;
@@ -255,7 +255,7 @@ namespace	ft {
 			}
 
 			template< class InputIt >
-			void			insert( iterator pos, InputIt first, InputIt last, typename ft::enable_if<!is_integral<InputIt>::value>::type* = NULL) {
+			void			insert( iterator pos, InputIt first, typename ft::enable_if<!is_integral<InputIt>::value, InputIt>::type last) {
 
 				size_type	idx = pos - begin();
 				size_type	n = 0;
@@ -382,6 +382,7 @@ namespace	ft {
 			
 			if (lhs.size() != rhs.size())
 				return false;
+
 			return ft::equal(lhs.begin(), lhs.end(), rhs.begin());
 	}
 
