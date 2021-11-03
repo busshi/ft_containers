@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:46:29 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/29 12:48:57 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/11/01 13:04:17 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,16 @@ namespace ft {
 
 		return (first1 == last1 && first2 != last2);
 	}
+
+	template< class T >
+	struct	less {
+
+		typedef bool	result_type;
+		typedef T		first_argument_type;
+		typedef T		second_argument_type;
+
+		bool operator()( const T& lhs, const T& rhs ) const { return lhs < rhs; }
+	};
 }
 
 #endif

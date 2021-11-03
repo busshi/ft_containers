@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   iterator.hpp                                       :+:      :+:    :+:   */
+/*   vector_iterator.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 16:21:08 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/29 14:22:30 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/10/30 13:10:10 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ITERATOR_HPP
-# define ITERATOR_HPP
+#ifndef VECTOR_ITERATOR_HPP
+# define VECTOR_ITERATOR_HPP
 
 namespace	ft {
 
@@ -27,17 +27,17 @@ namespace	ft {
 
 			iterator( void ): _ptr() {}
 			iterator( pointer ptr ) : _ptr(ptr) {}
-			iterator( const iterator& src ) { *this = src; }
+			iterator( const iterator& other ) { *this = other; }
 		
-			iterator& operator=( const iterator& rhs ) {
+			iterator& operator=( const iterator& other ) {
 
-				if (this != &rhs)
-					_ptr = rhs._ptr;
+				if (this != &other)
+					_ptr = other._ptr;
 			
 				return *this;
 			}
 
-			~iterator() {}
+			~iterator( void ) {}
 
 			reference	operator*() const {	return *_ptr; }
 			pointer		operator->() const { return _ptr; }
@@ -90,14 +90,14 @@ namespace	ft {
 
 			const_iterator( void ) {}
 			const_iterator( pointer ptr ) : _ptr(ptr) {}
-			const_iterator( const iterator<T>& src) : _ptr(src._ptr) {}
-			const_iterator( const const_iterator& src ) { *this = src; }
+			const_iterator( const iterator<T>& other) : _ptr(other._ptr) {}
+			const_iterator( const const_iterator& other ) { *this = other; }
 			~const_iterator( void ) {}
 			
-			const_iterator &	operator=( const const_iterator& rhs ) {
+			const_iterator &	operator=( const const_iterator& other ) {
 			
-			if (this != &rhs)
-					_ptr = rhs._ptr;
+			if (this != &other)
+					_ptr = other._ptr;
 				return *this;
 			}
 

@@ -6,17 +6,19 @@
 #    By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 18:20:46 by aldubar           #+#    #+#              #
-#    Updated: 2021/10/25 13:44:51 by aldubar          ###   ########.fr        #
+#    Updated: 2021/11/02 10:17:17 by aldubar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= std_containers
 
-SRCS		= $(addprefix srcs/, main.cpp vector.cpp stack.cpp map.cpp)
+TESTS		= $(addprefix tests/, main.cpp testVector.cpp testStack.cpp testMap.cpp)
+
+HEADER_TEST	= $(addprefix tests/, testVector.hpp testStack.hpp testMap.hpp)
 
 OBJ_DIR		= obj/std
 
-OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
+OBJS		= $(addprefix $(OBJ_DIR)/, $(TESTS:.cpp=.o))
 
 FLAGS		= -Wall -Wextra -Werror -std=c++98 -Iincludes -DSTL=1
 
@@ -32,7 +34,7 @@ $(OBJ_DIR)/%.o:%.cpp
 			
 all:		$(NAME)
 
-$(NAME):	$(OBJS) $(OBJ_DIR)
+$(NAME):	$(OBJS) $(OBJ_DIR) $(HEADER_TEST)
 		@echo "[....] Compiling $(NAME)\c"
 		$(CC) $(FLAGS) $(OBJS) -o $@
 		@echo $(OK)

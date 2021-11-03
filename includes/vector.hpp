@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 10:19:01 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/29 15:04:55 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/11/01 13:00:43 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <cstdlib>
 # include <memory>
 # include <stdexcept>
-# include "iterator.hpp"
+# include "vector_iterator.hpp"
 # include "reverse_iterator.hpp"
 # include "type_traits.hpp"
 # include "comparison.hpp"
@@ -400,6 +400,9 @@ namespace	ft {
 
 	template< class T, class Alloc >
 	bool	operator<( const ft::vector<T, Alloc>& lhs, const ft::vector<T, Alloc>& rhs ) { return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()); }
+
+	template< class T, class Alloc >
+	void	swap( ft::vector<T,Alloc>& lhs, ft::vector<T,Alloc>& rhs ) { lhs.swap(rhs); }
 }
 
 #endif

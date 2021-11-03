@@ -6,19 +6,21 @@
 #    By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/04 18:20:46 by aldubar           #+#    #+#              #
-#    Updated: 2021/10/29 11:30:13 by aldubar          ###   ########.fr        #
+#    Updated: 2021/11/02 10:16:08 by aldubar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= ft_containers
 
-SRCS		= $(addprefix srcs/, main.cpp vector.cpp stack.cpp map.cpp)
+TESTS		= $(addprefix tests/, main.cpp testVector.cpp testStack.cpp testMap.cpp)
 
-HEADER		= $(addprefix includes/, vector.hpp iterator.hpp reverse_iterator.hpp type_traits.hpp comparison.hpp stack.hpp map.hpp)
+HEADER_TEST	= $(addprefix tests/, testVector.hpp testStack.hpp testMap.hpp)
+
+HEADER		= $(addprefix includes/, vector.hpp vector_iterator.hpp reverse_iterator.hpp type_traits.hpp comparison.hpp stack.hpp map.hpp map_iterator.hpp tree.hpp pair.hpp)
 
 OBJ_DIR		= obj/ft
 
-OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
+OBJS		= $(addprefix $(OBJ_DIR)/, $(TESTS:.cpp=.o))
 
 FLAGS		= -Wall -Wextra -Werror -std=c++98 -Iincludes -DSTL=0
 
@@ -34,7 +36,7 @@ $(OBJ_DIR)/%.o:%.cpp
 
 all:		$(NAME)
 
-$(NAME):	$(OBJS) $(OBJ_DIR)
+$(NAME):	$(OBJS) $(OBJ_DIR) $(HEADER) $(HEADER_TEST)
 		@echo "[....] Compiling $(NAME)\c"
 		$(CC) $(FLAGS) $(OBJS) -o $@
 		@echo $(OK)

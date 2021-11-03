@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.cpp                                         :+:      :+:    :+:   */
+/*   testVector.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:04:49 by aldubar           #+#    #+#             */
-/*   Updated: 2021/10/25 13:45:42 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/11/02 10:18:07 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+#ifndef TESTVECTOR_HPP
+# define TESTVECTOR_HPP
 
-#if STL
+# include "TestContainers.hpp"
+
+# if STL
 	namespace ft = std;
 	#include <vector>
-#else
+# else
 	#include "vector.hpp"
-	#include "iterator.hpp"
-#endif
-
-#define RED		"\033[31m"
-#define ORANGE	"\033[33m"
-#define CLEAR	"\033[0m"
-#define OK		" [ \033[32mOK\033[0m ]"
-#define KO		" [ \033[31mKO\033[0m ]"
-#define	STR		"std::string"
-
+# endif
 
 template< class T >
 void	checkEmpty( T & vec ) {
@@ -87,7 +81,7 @@ void	checkAt( T vec ) {
 		std::cout << vec.at(size);
 	}
 	catch (std::exception & e) {
-		std::cout << RED << "Out of range exception" << CLEAR << std::endl;
+		std::cout << RED << "Out of range exception" << CLR << std::endl;
 	}
 	
 	std::cout << std::endl;
@@ -273,64 +267,4 @@ void	latestsTests( T vec, T vec2, std::string type, std::string s ) {
 	checkSize(vec2, s);
 }
 
-void	testingVector( void ) {
-
-	std::cout << ORANGE << "===> TESTING VECTOR <===" << CLEAR << std::endl << std::endl;
-
-	std::cout << ORANGE << "Empty vector of " << STR << " of size = 0" << CLEAR << std::endl;
-	ft::vector<std::string>	vs;
-	runTestsStr(vs, false);
-
-
-	std::cout << ORANGE << "Empty vector of " << STR << " of size = 10" << CLEAR << std::endl;
-	ft::vector<std::string>	vs2(10);
-	runTestsStr(vs2, false);
-
-
-	std::cout << ORANGE << "Filled vector of " << STR << " of size = 5" << CLEAR << std::endl;
-	ft::vector<std::string>	vs3(5, "holà");
-	runTestsStr(vs3, true);
-
-
-	std::cout << ORANGE << "Empty vector of int of size = 0" << CLEAR << std::endl;
-	ft::vector<int>	vi;
-	runTestsInt(vi, false);
-
-
-	std::cout << ORANGE << "Empty vector of int of size = 10" << CLEAR << std::endl;
-	ft::vector<int>	vi2(10);
-	runTestsInt(vi2, false);
-
-
-	std::cout << ORANGE << "Filled vector of int of size = 5" << CLEAR << std::endl;
-	ft::vector<int>	vi3(5, 42);
-	runTestsInt(vi3, true);
-
-
-
-	std::cout << ORANGE << "===> MORE TESTS FOR VECTOR <===" << CLEAR << std::endl;
-
-	std::cout << ORANGE << "Vector of " << STR << CLEAR << std::endl;
-	ft::vector<std::string>	vs4;
-	std::string	arrayStr[] = {"bonjour", "au revoir", "salut", "bonne journée"};
-	moreTests(vs4, arrayStr);
-
-
-	std::cout << ORANGE << "Vector of int" << CLEAR << std::endl;
-	ft::vector<int>	vi4;
-	int arrayInt[] = {113, 4242, 666, -42};
-	moreTests(vi4, arrayInt);
-
-
-	std::cout << ORANGE << "===> LASTEST TESTS FOR VECTOR <===" << CLEAR << std::endl;
-	ft::vector<int>	vi5;
-	ft::vector<int>	vi6;
-	for (size_t i = 0; i < 42; i++) {
-		vi5.push_back(i);
-		vi6.push_back(-i);
-	}
-	latestsTests(vi5, vi6, "int", "Differents");
-	latestsTests(vi5, vi5, "int", "same");
-
-	std::cout << std::endl << std::endl;
-}
+#endif

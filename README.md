@@ -6,3 +6,12 @@
 # FT_CONTAINERS
 
 ### Recreating STL containers : vector map stack
+
+Usage:
+```bash
+make # Create 2 binaries, one with ft_containers, one with the real STL
+make defense # Compile both binaries and check diff output and time execution
+make check # Check ft_containers with my own tester
+```
+
+[ft_containers_checker] (https://github.com/busshi/ft_containers_checker)
