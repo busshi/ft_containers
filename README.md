@@ -14,4 +14,4 @@ make defense # Compile both binaries and check diff output and time execution
 make check # Check ft_containers with my own tester
 ```
 
-[ft_containers_checker] (https://github.com/busshi/ft_containers_checker)
+[ft_containers_checker](https://github.com/busshi/ft_containers_checker)
