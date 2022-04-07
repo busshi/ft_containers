@@ -1,7 +1,6 @@
 ![checker](https://github.com/busshi/ft_containers/actions/workflows/checker.yml/badge.svg)
 
-[![aldubar's 42Project Score](https://badge42.herokuapp.com/api/project/aldubar/ft_containers)](https://github.com/JaeSeoKim/badge42)
-
+[![aldubar's 42 ft_containers Score](https://badge42.vercel.app/api/v2/cl1p4dvqu002109k1x3fvx39n/project/2361342)](https://github.com/JaeSeoKim/badge42)
 
 # FT_CONTAINERS
 
